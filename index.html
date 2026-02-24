@@ -912,7 +912,10 @@
         <div style="display:grid;grid-template-columns:1fr 360px;gap:20px;align-items:start;">
           <div class="table-wrap" id="readers-table"></div>
           <div>
-            <div class="section-head"><span class="section-title" data-i18n="readers.compose">Compose Newsletter</span></div>
+            <div class="section-head">
+              <span class="section-title" data-i18n="readers.compose">Compose Newsletter</span>
+              <span id="nl-count-badge" style="font-size:0.68rem;color:var(--muted2);background:var(--surface2);border:1px solid var(--border);border-radius:100px;padding:2px 10px;"></span>
+            </div>
             <div class="compose-area">
               <div class="compose-toolbar">
                 <input id="nl-subject" class="search-input" data-i18n="nl.subject_ph" style="width:100%;flex:1;border-radius:4px;" placeholder="Subject line…">
@@ -1033,10 +1036,18 @@
     </div>
     <div class="field"><label data-i18n="bk.cover_url">Cover Image URL (optional)</label><input id="bk-cover" type="url" placeholder="https://…"></div>
     <div class="field"><label data-i18n="field.desc">Short Description</label><textarea id="bk-desc"></textarea></div>
-    <div class="field"><label data-i18n="field.formats">Formats</label>
-      <div style="display:flex;gap:14px;margin-top:4px;">
-        <label style="display:flex;align-items:center;gap:6px;font-size:0.82rem;color:var(--muted);text-transform:none;letter-spacing:0;"><input type="checkbox" id="bk-ebook" checked> eBook</label>
-        <label style="display:flex;align-items:center;gap:6px;font-size:0.82rem;color:var(--muted);text-transform:none;letter-spacing:0;"><input type="checkbox" id="bk-print"> Print</label>
+    <div class="form-row">
+      <div class="field"><label data-i18n="field.formats">Formats</label>
+        <div style="display:flex;gap:14px;margin-top:4px;">
+          <label style="display:flex;align-items:center;gap:6px;font-size:0.82rem;color:var(--muted);text-transform:none;letter-spacing:0;"><input type="checkbox" id="bk-ebook" checked> eBook</label>
+          <label style="display:flex;align-items:center;gap:6px;font-size:0.82rem;color:var(--muted);text-transform:none;letter-spacing:0;"><input type="checkbox" id="bk-print"> Print</label>
+        </div>
+      </div>
+      <div class="field"><label>Status</label>
+        <select id="bk-status">
+          <option value="published">Published</option>
+          <option value="draft">Draft</option>
+        </select>
       </div>
     </div>
     <div class="modal-footer">
@@ -1529,8 +1540,9 @@ function renderDashboard() {
   const pp = document.getElementById('dash-pipeline-preview');
   if (pipeline.length) {
     pp.innerHTML = `<table class="data-table"><tbody>${pipeline.slice(0,5).map(c=>`
-      <tr onclick="showView('pipeline')" style="cursor:pointer;">
+      <tr onclick="openProjectModal(${c.id})" style="cursor:pointer;" title="Open project">
         <td style="color:var(--text);font-family:var(--serif);">${c.title}</td>
+        <td style="color:var(--muted);font-size:0.78rem;">${c.author||''}</td>
         <td><span class="status-pill pill-draft">${c.stage}</span></td>
       </tr>`).join('')}</tbody></table>`;
   } else {
@@ -1714,6 +1726,31 @@ function deleteCard(id) {
   updateBadges();
 }
 
+function publishCardToCatalogue(id) {
+  const cards = get('pipeline') || defaultPipeline();
+  const c = cards.find(x=>x.id===id);
+  if (!c) return;
+  const books = get('catalogue') || defaultCatalogue();
+  if (books.some(b=>b.title===c.title && b.author===c.author)) { toast('Already in catalogue.'); return; }
+  books.push({
+    id: Date.now(),
+    title:    c.title,
+    author:   c.author   || '',
+    year:     new Date().getFullYear().toString(),
+    cat:      c.cat      || 'nonfiction',
+    desc:     c.notes    || '',
+    formats:  ['ebook'],
+    status:   'published',
+    coverUrl: c.coverUrl || ''
+  });
+  set('catalogue', books);
+  logActivity(`<strong>${c.title}</strong> published to catalogue`, 'green');
+  updateBadges();
+  toast(`"${c.title}" added to catalogue ✓`);
+  // Refresh footer to show "✓ In catalogue"
+  openProjectModal(id);
+}
+
 // ════════════════════════════════════════
 //  SUBMISSIONS
 // ════════════════════════════════════════
@@ -1795,7 +1832,7 @@ function addSubToPipeline(id) {
     title:  s.bookTitle || 'Untitled',
     author: s.name      || '',
     stage:  STAGES[0],
-    cat:    s.genre     || 'nonfiction',
+    cat:    s.cat       || 'nonfiction',
     notes:  s.desc      ? s.desc.slice(0, 120) : '',
     wordCount: '',
     created: new Date().toISOString().slice(0,10)
@@ -1884,7 +1921,7 @@ function renderCatalogue() {
       <td style="color:var(--muted2);">${b.year}</td>
       <td><span class="card-tag tag-${b.cat}" style="display:inline-block;">${catLabel(b.cat)}</span></td>
       <td style="color:var(--muted2);font-size:0.78rem;">${(b.formats||[]).join(', ')}</td>
-      <td><span class="status-pill pill-${b.status==='published'?'published':'draft'}">${b.status}</span></td>
+      <td><span class="status-pill pill-${b.status==='published'?'published':'draft'}" onclick="toggleBookStatus(${b.id})" title="Click to toggle status" style="cursor:pointer;">${b.status}</span></td>
       <td style="display:flex;gap:6px;align-items:center;"><button class="btn btn-ghost btn-sm" onclick="editBook(${b.id})" title="Edit" style="font-size:0.75rem;">✏</button><button class="btn btn-danger btn-sm" onclick="deleteBook(${b.id})">✕</button></td>
     </tr>`).join('')}</tbody></table>`;
 }
@@ -1901,10 +1938,11 @@ function saveBook() {
   const coverUrl = document.getElementById('bk-cover').value.trim();
   if (editBookId) {
     const b = books.find(x=>x.id===editBookId);
-    if (b) { b.title=title; b.author=author; b.year=document.getElementById('bk-year').value||'2026'; b.cat=document.getElementById('bk-cat').value; b.desc=document.getElementById('bk-desc').value; b.formats=formats; b.coverUrl=coverUrl; }
+    if (b) { b.title=title; b.author=author; b.year=document.getElementById('bk-year').value||'2026'; b.cat=document.getElementById('bk-cat').value; b.desc=document.getElementById('bk-desc').value; b.formats=formats; b.coverUrl=coverUrl; b.status=document.getElementById('bk-status').value; logActivity(`<strong>${title}</strong> updated in catalogue`, 'blue'); }
   } else {
-    books.push({ id:Date.now(), title, author, year:document.getElementById('bk-year').value||'2026', cat:document.getElementById('bk-cat').value, desc:document.getElementById('bk-desc').value, formats, status:'published', coverUrl });
-    logActivity(`<strong>${title}</strong> added to catalogue`, 'blue');
+    const status = document.getElementById('bk-status')?.value || 'published';
+    books.push({ id:Date.now(), title, author, year:document.getElementById('bk-year').value||'2026', cat:document.getElementById('bk-cat').value, desc:document.getElementById('bk-desc').value, formats, status, coverUrl });
+    logActivity(`<strong>${title}</strong> added to catalogue${status==='draft'?' (draft)':''}`, 'blue');
   }
   set('catalogue', books);
   closeModal('book-modal');
@@ -1917,8 +1955,24 @@ function saveBook() {
 
 function deleteBook(id) {
   if (!confirm('Remove from catalogue?')) return;
-  set('catalogue', (get('catalogue')||defaultCatalogue()).filter(b=>b.id!==id));
+  const books = get('catalogue') || defaultCatalogue();
+  const book = books.find(b=>b.id===id);
+  set('catalogue', books.filter(b=>b.id!==id));
+  if (book) logActivity(`<strong>${book.title}</strong> removed from catalogue`, 'pink');
   renderCatalogue();
+  updateBadges();
+}
+
+function toggleBookStatus(id) {
+  const books = get('catalogue') || defaultCatalogue();
+  const b = books.find(x=>x.id===id);
+  if (!b) return;
+  b.status = b.status === 'published' ? 'draft' : 'published';
+  set('catalogue', books);
+  logActivity(`<strong>${b.title}</strong> set to ${b.status}`, b.status==='published'?'green':'pink');
+  renderCatalogue();
+  updateBadges();
+  toast(`"${b.title}" is now ${b.status}.`);
 }
 
 function openAddBookModal() {
@@ -1932,6 +1986,8 @@ function openAddBookModal() {
   if (ebookEl) ebookEl.checked = true;
   if (printEl) printEl.checked = false;
   if (catEl)   catEl.value = 'nonfiction';
+  const statusEl = document.getElementById('bk-status');
+  if (statusEl) statusEl.value = 'published';
   openModal('book-modal');
 }
 
@@ -1950,6 +2006,8 @@ function editBook(id) {
   document.getElementById('bk-cover').value  = b.coverUrl || '';
   document.getElementById('bk-ebook').checked = (b.formats || []).includes('ebook');
   document.getElementById('bk-print').checked = (b.formats || []).includes('print');
+  const statusEl = document.getElementById('bk-status');
+  if (statusEl) statusEl.value = b.status || 'published';
   openModal('book-modal');
 }
 
@@ -1959,9 +2017,11 @@ function editBook(id) {
 function renderReaders() {
   const el = document.getElementById('readers-table');
   const badge = document.getElementById('badge-readers');
+  const nlBadge = document.getElementById('nl-count-badge');
   const q = document.getElementById('reader-search')?.value.toLowerCase() || '';
   let readers = get('readers') || [];
   if (badge) badge.textContent = readers.length;
+  if (nlBadge) nlBadge.textContent = readers.length ? `${readers.length} subscriber${readers.length!==1?'s':''}` : 'No subscribers yet';
   if (q) readers = readers.filter(r => (r.email||'').toLowerCase().includes(q) || (r.name||'').toLowerCase().includes(q));
 
   if (!readers.length) {
@@ -2318,9 +2378,13 @@ function openProjectModal(id) {
       </div>
     </div>`;
 
+  const canPublish = (stageIdx >= STAGES.indexOf('Ready'));
+  const alreadyInCat = (get('catalogue')||defaultCatalogue()).some(b=>b.title===c.title && b.author===c.author);
   document.getElementById('project-modal-footer').innerHTML = `
     <span style="font-size:0.72rem;color:var(--muted2);">Auto-saved</span>
-    <button class="btn btn-ghost" onclick="closeModal('project-modal')" data-i18n="project.back">${t('project.back')}</button>`;
+    ${canPublish && !alreadyInCat ? `<button class="btn btn-primary btn-sm" onclick="publishCardToCatalogue(${c.id})" style="font-size:0.75rem;">📚 Add to Catalogue</button>` : ''}
+    ${canPublish && alreadyInCat  ? `<span style="font-size:0.72rem;color:var(--green);">✓ In catalogue</span>` : ''}
+    <button class="btn btn-ghost" onclick="closeModal('project-modal');if(currentView==='pipeline')renderKanban();" data-i18n="project.back">${t('project.back')}</button>`;
 
   openModal('project-modal');
 }
@@ -2336,6 +2400,8 @@ function setProjectStage(id, stage, btn) {
   btn.closest('.project-milestone-row').querySelectorAll('.project-milestone-btn').forEach((b,i)=>b.classList.toggle('active',STAGES[i]===stage));
   logActivity(`<strong>${(get('pipeline')||[]).find(x=>x.id===id)?.title||'Title'}</strong> advanced to ${stage}`,'green');
   updateBadges();
+  // Keep kanban in sync so closing the modal shows the correct stage
+  if (currentView === 'pipeline') renderKanban();
 }
 
 function updateProjectCoverUrl(url, id) {
@@ -2523,9 +2589,9 @@ function renderStudio() {
 }
 
 function applyTheme(name) {
-  const t = COLOR_THEMES[name];
-  if (!t) return;
-  saveSettings(t);
+  const theme = COLOR_THEMES[name];
+  if (!theme) return;
+  saveSettings(theme);
   renderStudio();
   toast(`Theme "${name}" applied.`);
 }
