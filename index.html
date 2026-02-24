@@ -767,13 +767,13 @@
         <span class="ni">◎</span><span data-i18n="nav.insights">Insights</span>
         <span class="nav-shortcut">I</span>
       </button>
-      <div class="nav-section">Tools</div>
+      <div class="nav-section" data-i18n="nav.tools">Tools</div>
       <button class="nav-item" onclick="showView('intake')" id="ni-intake">
         <span class="ni">✍</span><span data-i18n="nav.intake">Submit Form</span>
         <span class="nav-shortcut">F</span>
       </button>
       <button class="nav-item" onclick="openStudio()" id="ni-studio">
-        <span class="ni">🎨</span><span>Studio</span>
+        <span class="ni">🎨</span><span data-i18n="nav.studio">Studio</span>
         <span class="nav-shortcut" style="font-size:0.55rem;">⌘⇧S</span>
       </button>
       <a class="sidebar-website" href="https://janapress.sk" target="_blank" rel="noopener">
@@ -785,7 +785,7 @@
         <button class="lang-btn active" onclick="setLangAndClose('en')">EN</button>
         <button class="lang-btn" onclick="setLangAndClose('sk')">SK</button>
       </div>
-      <button onclick="logout()" style="width:100%;background:transparent;border:1px solid var(--border);border-radius:100px;padding:7px;font-family:var(--sans);font-size:0.72rem;color:var(--muted);cursor:pointer;transition:all 0.15s;" onmouseover="this.style.borderColor='var(--pink)';this.style.color='var(--pink)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">Sign out</button>
+      <button onclick="logout()" data-i18n="auth.signout" style="width:100%;background:transparent;border:1px solid var(--border);border-radius:100px;padding:7px;font-family:var(--sans);font-size:0.72rem;color:var(--muted);cursor:pointer;transition:all 0.15s;" onmouseover="this.style.borderColor='var(--pink)';this.style.color='var(--pink)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">Sign out</button>
     </div>
   </aside>
 
@@ -809,7 +809,7 @@
             <div class="lang-option" id="lo-sk" onclick="setLangAndClose('sk')">🇸🇰 Slovenčina</div>
           </div>
         </div>
-        <span class="topbar-hint"><kbd>⌘K</kbd> actions</span>
+        <span class="topbar-hint"><kbd>⌘K</kbd> <span data-i18n="topbar.hint">actions</span></span>
       </div>
     </div>
     <div class="content" id="main-content">
@@ -867,12 +867,7 @@
               <span class="section-title" data-i18n="dash.activity">Activity</span>
               <button class="btn btn-ghost btn-sm" onclick="clearActivity()" data-i18n="btn.clear_activity" style="font-size:0.65rem;">Clear</button>
             </div>
-            <div class="table-wrap" style="padding:4px 0;" id="dash-activity-feed">
-              <div class="empty-state" style="padding:28px 20px;">
-                <div class="empty-quote">"Every great book begins with a single action."</div>
-                <p>Your publishing activity will appear here.</p>
-              </div>
-            </div>
+            <div class="table-wrap" style="padding:4px 0;" id="dash-activity-feed"></div>
           </div>
         </div>
       </div>
@@ -981,11 +976,11 @@
 
 <!-- MOBILE BOTTOM NAV -->
 <nav class="mobile-nav" id="mobile-nav" aria-label="Main navigation">
-  <button class="mobile-nav-item active" id="mni-dashboard" onclick="showView('dashboard')"><span class="mni">◈</span>Home</button>
-  <button class="mobile-nav-item" id="mni-pipeline"    onclick="showView('pipeline')"><span class="mni">⬡</span>Pipeline</button>
-  <button class="mobile-nav-item" id="mni-submissions" onclick="showView('submissions')"><span class="mni">📥</span>Subs</button>
-  <button class="mobile-nav-item" id="mni-catalogue"   onclick="showView('catalogue')"><span class="mni">📚</span>Books</button>
-  <button class="mobile-nav-item" id="mni-readers"     onclick="showView('readers')"><span class="mni">✉</span>Readers</button>
+  <button class="mobile-nav-item active" id="mni-dashboard" onclick="showView('dashboard')"><span class="mni">◈</span><span data-i18n="mobile.home">Home</span></button>
+  <button class="mobile-nav-item" id="mni-pipeline"    onclick="showView('pipeline')"><span class="mni">⬡</span><span data-i18n="mobile.pipeline">Pipeline</span></button>
+  <button class="mobile-nav-item" id="mni-submissions" onclick="showView('submissions')"><span class="mni">📥</span><span data-i18n="mobile.subs">Subs</span></button>
+  <button class="mobile-nav-item" id="mni-catalogue"   onclick="showView('catalogue')"><span class="mni">📚</span><span data-i18n="mobile.books">Books</span></button>
+  <button class="mobile-nav-item" id="mni-readers"     onclick="showView('readers')"><span class="mni">✉</span><span data-i18n="mobile.readers">Readers</span></button>
 </nav>
 
 <!-- STUDIO PANEL -->
@@ -996,10 +991,10 @@
     <button class="studio-close" onclick="closeStudio()">✕</button>
   </div>
   <div class="studio-tabs">
-    <button class="studio-tab active" onclick="setStudioTab('brand')">Brand</button>
-    <button class="studio-tab" onclick="setStudioTab('identity')">Identity</button>
-    <button class="studio-tab" onclick="setStudioTab('modules')">Modules</button>
-    <button class="studio-tab" onclick="setStudioTab('export')">Export</button>
+    <button class="studio-tab active" onclick="setStudioTab('brand')" data-i18n="studio.brand">Brand</button>
+    <button class="studio-tab" onclick="setStudioTab('identity')" data-i18n="studio.identity">Identity</button>
+    <button class="studio-tab" onclick="setStudioTab('modules')" data-i18n="studio.modules">Modules</button>
+    <button class="studio-tab" onclick="setStudioTab('export')" data-i18n="studio.export">Export</button>
   </div>
   <div class="studio-body" id="studio-body"></div>
 </div>
@@ -1045,8 +1040,8 @@
       </div>
       <div class="field"><label>Status</label>
         <select id="bk-status">
-          <option value="published">Published</option>
-          <option value="draft">Draft</option>
+          <option value="published" data-i18n="status.published">Published</option>
+          <option value="draft" data-i18n="status.draft">Draft</option>
         </select>
       </div>
     </div>
@@ -1075,11 +1070,11 @@
       </div>
       <div class="field"><label data-i18n="field.stage">Stage</label>
         <select id="card-stage">
-          <option value="Idea">Idea</option>
-          <option value="Draft">Draft</option>
-          <option value="Editing">Editing</option>
-          <option value="Design">Design</option>
-          <option value="Ready">Ready</option>
+          <option value="Idea" data-i18n="stage.Idea">Idea</option>
+          <option value="Draft" data-i18n="stage.Draft">Draft</option>
+          <option value="Editing" data-i18n="stage.Editing">Editing</option>
+          <option value="Design" data-i18n="stage.Design">Design</option>
+          <option value="Ready" data-i18n="stage.Ready">Ready</option>
         </select>
       </div>
     </div>
@@ -1202,6 +1197,19 @@ const L = {
     'intake.lbl_bio':'About You','intake.ph_bio':'A short author bio — previous publications, background, or anything relevant.',
     'intake.btn_submit':'Submit Manuscript ›','intake.btn_email':'Send via Email',
     'cat.nonfiction':'Non-fiction','cat.fiction':'Fiction','cat.essays':'Essays','cat.other':'Other',
+    'nav.tools':'Tools','nav.studio':'Studio',
+    'auth.signout':'Sign out',
+    'topbar.hint':'actions',
+    'mobile.home':'Home','mobile.pipeline':'Pipeline','mobile.subs':'Subs','mobile.books':'Books','mobile.readers':'Readers',
+    'stage.Idea':'Idea','stage.Draft':'Draft','stage.Editing':'Editing','stage.Design':'Design','stage.Ready':'Ready','stage.Published':'Published',
+    'status.new':'New','status.reviewed':'Reviewed','status.declined':'Declined','status.published':'Published','status.draft':'Draft',
+    'badge.latest_release':'Latest Release',
+    'studio.brand':'Brand','studio.identity':'Identity','studio.modules':'Modules','studio.export':'Export',
+    'project.autosaved':'Auto-saved',
+    'btn.close':'Close','btn.decline':'Decline','btn.mark_reviewed':'Mark Reviewed',
+    'btn.add_to_catalogue':'Add to Catalogue','btn.in_catalogue':'✓ In catalogue',
+    'empty.activity_quote':'"Every great book begins with a single action."',
+    'empty.activity_msg':'Your publishing activity will appear here.',
   },
   sk: {
     'login.sub':'Vydavateľský systém',
@@ -1269,6 +1277,19 @@ const L = {
     'intake.lbl_bio':'O vás','intake.ph_bio':'Krátky autorský bio — predchádzajúce publikácie, pozadie, čokoľvek relevantné.',
     'intake.btn_submit':'Odoslať rukopis ›','intake.btn_email':'Poslať e-mailom',
     'cat.nonfiction':'Fakty/literatúra faktu','cat.fiction':'Beletria','cat.essays':'Eseje','cat.other':'Iné',
+    'nav.tools':'Nástroje','nav.studio':'Štúdio',
+    'auth.signout':'Odhlásiť sa',
+    'topbar.hint':'akcie',
+    'mobile.home':'Domov','mobile.pipeline':'Pipeline','mobile.subs':'Podania','mobile.books':'Knihy','mobile.readers':'Čitatelia',
+    'stage.Idea':'Nápad','stage.Draft':'Rukopis','stage.Editing':'Editovanie','stage.Design':'Dizajn','stage.Ready':'Pripravené','stage.Published':'Vydané',
+    'status.new':'Nové','status.reviewed':'Posúdené','status.declined':'Zamietnuté','status.published':'Vydané','status.draft':'Návrh',
+    'badge.latest_release':'Najnovšie vydanie',
+    'studio.brand':'Značka','studio.identity':'Identita','studio.modules':'Moduly','studio.export':'Export',
+    'project.autosaved':'Automaticky uložené',
+    'btn.close':'Zatvoriť','btn.decline':'Zamietnuť','btn.mark_reviewed':'Označiť ako posúdené',
+    'btn.add_to_catalogue':'Pridať do katalógu','btn.in_catalogue':'✓ V katalógu',
+    'empty.activity_quote':'"Každá skvelá kniha začína jedným krokom."',
+    'empty.activity_msg':'Vaša vydavateľská aktivita sa zobrazí tu.',
   }
 };
 let lang = localStorage.getItem('jp_lang') || 'en';
@@ -1316,7 +1337,9 @@ function defaultPipeline() {
 const STAGES = ['Idea','Draft','Editing','Design','Ready','Published'];
 const CAT_LABELS = { nonfiction:'Non-fiction', fiction:'Fiction', essays:'Essays' };
 const CAT_SK = { nonfiction:'Literatúra faktu', fiction:'Beletria', essays:'Eseje' };
-function catLabel(c) { return lang === 'sk' ? (CAT_SK[c]||c) : (CAT_LABELS[c]||c); }
+function catLabel(c) { return t('cat.'+c) || (lang === 'sk' ? (CAT_SK[c]||c) : (CAT_LABELS[c]||c)); }
+function stageLabel(s) { return t('stage.'+s) || s; }
+function statusLabel(s) { return t('status.'+s) || s; }
 
 // ── ACTIVITY LOG ─────────────────────────────
 function logActivity(msg, color = 'pink') {
@@ -1346,7 +1369,7 @@ function renderActivityFeed() {
   if (!el) return;
   const log = get('activity_log') || [];
   if (!log.length) {
-    el.innerHTML = `<div class="empty-state" style="padding:28px 20px;"><div class="empty-quote">"Every great book begins with a single action."</div><p>Your publishing activity will appear here.</p></div>`;
+    el.innerHTML = `<div class="empty-state" style="padding:28px 20px;"><div class="empty-quote">${t('empty.activity_quote')}</div><p>${t('empty.activity_msg')}</p></div>`;
     return;
   }
   el.innerHTML = `<div class="activity-list" style="padding:0 16px;">${
@@ -1522,7 +1545,7 @@ function renderDashboard() {
       <div class="book-hero-info">
         <h4>${latest.title}</h4>
         <p>${latest.author} · ${latest.year}</p>
-        <span class="book-hero-badge">Latest Release</span>
+        <span class="book-hero-badge">${t('badge.latest_release')}</span>
       </div>`;
   }
 
@@ -1543,7 +1566,7 @@ function renderDashboard() {
       <tr onclick="openProjectModal(${c.id})" style="cursor:pointer;" title="Open project">
         <td style="color:var(--text);font-family:var(--serif);">${c.title}</td>
         <td style="color:var(--muted);font-size:0.78rem;">${c.author||''}</td>
-        <td><span class="status-pill pill-draft">${c.stage}</span></td>
+        <td><span class="status-pill pill-draft">${stageLabel(c.stage)}</span></td>
       </tr>`).join('')}</tbody></table>`;
   } else {
     pp.innerHTML = `<div class="empty-state" style="padding:28px 20px;"><div class="empty-quote">${t('empty.pipeline_quote')}</div><p>${t('empty.pipeline_msg')}</p></div>`;
@@ -1564,7 +1587,7 @@ function renderPipelineChart(pipeline) {
   wrap.style.display = 'block';
   barsEl.innerHTML = STAGES.map(stage => `
     <div class="stage-row">
-      <span class="stage-row-name">${stage}</span>
+      <span class="stage-row-name">${stageLabel(stage)}</span>
       <div class="stage-bar-track">
         <div class="stage-bar-fill" data-target="${counts[stage] / max * 100}"></div>
       </div>
@@ -1606,7 +1629,7 @@ function renderKanban() {
     return `
       <div class="kanban-col" data-stage="${stage}">
         <div class="col-header">
-          <span class="col-name">${stage}</span>
+          <span class="col-name">${stageLabel(stage)}</span>
           <span class="col-count">${col.length}</span>
         </div>
         <div class="col-cards"
@@ -1675,10 +1698,10 @@ function onDrop(e, stage) {
     const oldStage = card.stage;
     card.stage = stage;
     set('pipeline', cards);
-    logActivity(`<strong>${card.title}</strong> moved from ${oldStage} → ${stage}`, 'blue');
+    logActivity(`<strong>${card.title}</strong> moved from ${stageLabel(oldStage)} → ${stageLabel(stage)}`, 'blue');
     renderKanban();
     updateBadges();
-    toast(`Moved to ${stage}.`);
+    toast(`Moved to ${stageLabel(stage)}.`);
   }
   dragCardId = null;
 }
@@ -1709,10 +1732,10 @@ function advanceCard(id) {
     const next = STAGES[idx+1];
     c.stage = next;
     set('pipeline', cards);
-    logActivity(`<strong>${c.title}</strong> advanced to ${next}`, 'green');
+    logActivity(`<strong>${c.title}</strong> advanced to ${stageLabel(next)}`, 'green');
     renderKanban();
     updateBadges();
-    toast(`Moved to ${next}.`);
+    toast(`Moved to ${stageLabel(next)}.`);
   }
 }
 
@@ -1773,7 +1796,7 @@ function renderSubmissions() {
       <td style="color:var(--text);">${s.name||'—'}</td>
       <td style="color:var(--muted);font-family:var(--serif);">${s.bookTitle||'—'}</td>
       <td style="color:var(--muted2);">${s.date||'—'}</td>
-      <td><span class="status-pill pill-${s.status}">${s.status}</span></td>
+      <td><span class="status-pill pill-${s.status}">${statusLabel(s.status)}</span></td>
       <td style="display:flex;gap:6px;">
         <button class="btn btn-ghost btn-sm" onclick="openSubmission(${s.id})">${t('btn.review')}</button>
         <button class="btn btn-danger btn-sm" onclick="deleteSubmission(${s.id})">✕</button>
@@ -1794,10 +1817,10 @@ function openSubmission(id) {
     ${s.desc ? `<div style="margin-bottom:8px;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);">About the Book</div><p style="color:var(--muted);font-size:0.85rem;line-height:1.7;margin-bottom:14px;">${s.desc}</p>` : ''}
     ${s.bio ? `<div style="margin-bottom:8px;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);">Author Bio</div><p style="color:var(--muted);font-size:0.85rem;line-height:1.7;">${s.bio}</p>` : ''}`;
   document.getElementById('sub-modal-footer').innerHTML = `
-    <button class="btn btn-ghost" onclick="closeModal('sub-modal')">Close</button>
-    <button class="btn btn-danger btn-sm" onclick="setSubStatus(${id},'declined');closeModal('sub-modal')">Decline</button>
-    <button class="btn btn-ghost" onclick="setSubStatus(${id},'reviewed');closeModal('sub-modal')">Mark Reviewed</button>
-    <button class="btn btn-primary" onclick="addSubToPipeline(${id})">→ Add to Pipeline</button>`;
+    <button class="btn btn-ghost" onclick="closeModal('sub-modal')">${t('btn.close')}</button>
+    <button class="btn btn-danger btn-sm" onclick="setSubStatus(${id},'declined');closeModal('sub-modal')">${t('btn.decline')}</button>
+    <button class="btn btn-ghost" onclick="setSubStatus(${id},'reviewed');closeModal('sub-modal')">${t('btn.mark_reviewed')}</button>
+    <button class="btn btn-primary" onclick="addSubToPipeline(${id})">→ ${t('modal.addcard')}</button>`;
   openModal('sub-modal');
 }
 
@@ -1921,7 +1944,7 @@ function renderCatalogue() {
       <td style="color:var(--muted2);">${b.year}</td>
       <td><span class="card-tag tag-${b.cat}" style="display:inline-block;">${catLabel(b.cat)}</span></td>
       <td style="color:var(--muted2);font-size:0.78rem;">${(b.formats||[]).join(', ')}</td>
-      <td><span class="status-pill pill-${b.status==='published'?'published':'draft'}" onclick="toggleBookStatus(${b.id})" title="Click to toggle status" style="cursor:pointer;">${b.status}</span></td>
+      <td><span class="status-pill pill-${b.status==='published'?'published':'draft'}" onclick="toggleBookStatus(${b.id})" title="Click to toggle status" style="cursor:pointer;">${statusLabel(b.status)}</span></td>
       <td style="display:flex;gap:6px;align-items:center;"><button class="btn btn-ghost btn-sm" onclick="editBook(${b.id})" title="Edit" style="font-size:0.75rem;">✏</button><button class="btn btn-danger btn-sm" onclick="deleteBook(${b.id})">✕</button></td>
     </tr>`).join('')}</tbody></table>`;
 }
@@ -2021,7 +2044,15 @@ function renderReaders() {
   const q = document.getElementById('reader-search')?.value.toLowerCase() || '';
   let readers = get('readers') || [];
   if (badge) badge.textContent = readers.length;
-  if (nlBadge) nlBadge.textContent = readers.length ? `${readers.length} subscriber${readers.length!==1?'s':''}` : 'No subscribers yet';
+  if (nlBadge) {
+    if (readers.length) {
+      nlBadge.textContent = lang === 'sk'
+        ? `${readers.length} odberateľ${readers.length===1?'':'ia'}`
+        : `${readers.length} subscriber${readers.length===1?'':'s'}`;
+    } else {
+      nlBadge.textContent = lang === 'sk' ? 'Žiadni odberatelia' : 'No subscribers yet';
+    }
+  }
   if (q) readers = readers.filter(r => (r.email||'').toLowerCase().includes(q) || (r.name||'').toLowerCase().includes(q));
 
   if (!readers.length) {
@@ -2288,7 +2319,7 @@ function renderInsights() {
         <div style="display:flex;flex-direction:column;gap:8px;">
           ${STAGES.map(stage=>`
             <div class="stage-row">
-              <span class="stage-row-name">${stage}</span>
+              <span class="stage-row-name">${stageLabel(stage)}</span>
               <div class="stage-bar-track">
                 <div class="stage-bar-fill" style="width:${(stageCounts[stage]/maxStage*100).toFixed(1)}%"></div>
               </div>
@@ -2333,7 +2364,7 @@ function renderInsights() {
                   <div style="font-size:0.7rem;color:var(--muted2);">${c.author||'—'}</div>
                 </div>
                 <div style="display:flex;align-items:center;gap:8px;">
-                  <span class="status-pill pill-draft">${c.stage}</span>
+                  <span class="status-pill pill-draft">${stageLabel(c.stage)}</span>
                   <button class="btn btn-ghost btn-sm" style="font-size:0.65rem;white-space:nowrap;" onclick="openProjectModal(${c.id})">${t('insights.open_project')}</button>
                 </div>
               </div>`).join('')}
@@ -2366,7 +2397,7 @@ function openProjectModal(id) {
     </div>
     <div>
       <div class="project-milestone-row">
-        ${STAGES.map((s,i)=>`<button class="project-milestone-btn${i===stageIdx?' active':''}" onclick="setProjectStage(${id},'${s}',this)">${s}</button>`).join('')}
+        ${STAGES.map((s,i)=>`<button class="project-milestone-btn${i===stageIdx?' active':''}" onclick="setProjectStage(${id},'${s}',this)">${stageLabel(s)}</button>`).join('')}
       </div>
       <div class="studio-field">
         <label class="studio-label" data-i18n="project.wordcount">${t('project.wordcount')}</label>
@@ -2381,9 +2412,9 @@ function openProjectModal(id) {
   const canPublish = (stageIdx >= STAGES.indexOf('Ready'));
   const alreadyInCat = (get('catalogue')||defaultCatalogue()).some(b=>b.title===c.title && b.author===c.author);
   document.getElementById('project-modal-footer').innerHTML = `
-    <span style="font-size:0.72rem;color:var(--muted2);">Auto-saved</span>
-    ${canPublish && !alreadyInCat ? `<button class="btn btn-primary btn-sm" onclick="publishCardToCatalogue(${c.id})" style="font-size:0.75rem;">📚 Add to Catalogue</button>` : ''}
-    ${canPublish && alreadyInCat  ? `<span style="font-size:0.72rem;color:var(--green);">✓ In catalogue</span>` : ''}
+    <span style="font-size:0.72rem;color:var(--muted2);" data-i18n="project.autosaved">${t('project.autosaved')}</span>
+    ${canPublish && !alreadyInCat ? `<button class="btn btn-primary btn-sm" onclick="publishCardToCatalogue(${c.id})" style="font-size:0.75rem;">📚 ${t('btn.add_to_catalogue')}</button>` : ''}
+    ${canPublish && alreadyInCat  ? `<span style="font-size:0.72rem;color:var(--green);">${t('btn.in_catalogue')}</span>` : ''}
     <button class="btn btn-ghost" onclick="closeModal('project-modal');if(currentView==='pipeline')renderKanban();" data-i18n="project.back">${t('project.back')}</button>`;
 
   openModal('project-modal');
