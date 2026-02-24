@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>janapress · Publisher OS</title>
+  <title>janapress · Publisher OS ✦</title>
   <!-- PWA -->
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#C84060">
@@ -938,31 +938,32 @@
       <div class="view" id="view-intake">
         <div class="intake-wrap">
           <div class="intake-header">
-            <h2>Submit Your Manuscript</h2>
-            <p>We read every submission with care. If your work is a good fit for janapress, we will be in touch within 6 weeks.</p>
+            <h2 data-i18n="intake.heading">Submit Your Manuscript</h2>
+            <p data-i18n="intake.subheading">We read every submission with care. If your work is a good fit for janapress, we will be in touch within 6 weeks.</p>
           </div>
           <div class="intake-card">
             <div class="form-row">
-              <div class="field"><label>Your Name</label><input id="in-name" type="text" placeholder="Full name"></div>
-              <div class="field"><label>Email Address</label><input id="in-email" type="email" placeholder="your@email.com"></div>
+              <div class="field"><label data-i18n="intake.lbl_name">Your Name</label><input id="in-name" type="text" data-i18n="intake.ph_name" placeholder="Full name"></div>
+              <div class="field"><label data-i18n="intake.lbl_email">Email Address</label><input id="in-email" type="email" placeholder="your@email.com"></div>
             </div>
-            <div class="field"><label>Book Title</label><input id="in-book" type="text" placeholder="Working title is fine"></div>
+            <div class="field"><label data-i18n="intake.lbl_title">Book Title</label><input id="in-book" type="text" data-i18n="intake.ph_title" placeholder="Working title is fine"></div>
             <div class="form-row">
-              <div class="field"><label>Category</label>
+              <div class="field"><label data-i18n="intake.lbl_cat">Category</label>
                 <select id="in-cat">
-                  <option value="nonfiction">Non-fiction</option>
-                  <option value="fiction">Fiction</option>
-                  <option value="essays">Essays</option>
-                  <option value="other">Other</option>
+                  <option value="nonfiction" data-i18n="cat.nonfiction">Non-fiction</option>
+                  <option value="fiction" data-i18n="cat.fiction">Fiction</option>
+                  <option value="essays" data-i18n="cat.essays">Essays</option>
+                  <option value="other" data-i18n="cat.other">Other</option>
                 </select>
               </div>
-              <div class="field"><label>Word Count (approx.)</label><input id="in-words" type="text" placeholder="e.g. 60 000"></div>
+              <div class="field"><label data-i18n="intake.lbl_words">Word Count (approx.)</label><input id="in-words" type="text" data-i18n="intake.ph_words" placeholder="e.g. 60 000"></div>
             </div>
             <div class="intake-divider"></div>
-            <div class="field"><label>Tell Us About Your Book</label><textarea id="in-desc" style="min-height:120px;" placeholder="A brief synopsis — what is the book about, who is the intended reader, why now?"></textarea></div>
-            <div class="field"><label>About You</label><textarea id="in-bio" placeholder="A short author bio — previous publications, background, or anything relevant."></textarea></div>
-            <div style="display:flex;justify-content:flex-end;margin-top:8px;">
-              <button class="btn btn-primary" onclick="submitIntakeForm()">Submit Manuscript ›</button>
+            <div class="field"><label data-i18n="intake.lbl_desc">Tell Us About Your Book</label><textarea id="in-desc" style="min-height:120px;" data-i18n="intake.ph_desc" placeholder="A brief synopsis — what is the book about, who is the intended reader, why now?"></textarea></div>
+            <div class="field"><label data-i18n="intake.lbl_bio">About You</label><textarea id="in-bio" data-i18n="intake.ph_bio" placeholder="A short author bio — previous publications, background, or anything relevant."></textarea></div>
+            <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:8px;flex-wrap:wrap;">
+              <button class="btn btn-ghost" onclick="sendIntakeEmail()" data-i18n="intake.btn_email">Send via Email</button>
+              <button class="btn btn-primary" onclick="submitIntakeForm()" data-i18n="intake.btn_submit">Submit Manuscript ›</button>
             </div>
           </div>
         </div>
@@ -1179,6 +1180,17 @@ const L = {
     'empty.cat_msg':'No books in catalogue yet.',
     'empty.readers_quote':'"A reader is the final reason for every book."',
     'empty.readers_msg':'No readers yet. Add your first subscriber.',
+    'intake.heading':'Submit Your Manuscript',
+    'intake.subheading':'We read every submission with care. If your work is a good fit, we will be in touch within 6 weeks.',
+    'intake.lbl_name':'Your Name','intake.ph_name':'Full name',
+    'intake.lbl_email':'Email Address',
+    'intake.lbl_title':'Book Title','intake.ph_title':'Working title is fine',
+    'intake.lbl_cat':'Category',
+    'intake.lbl_words':'Word Count (approx.)','intake.ph_words':'e.g. 60 000',
+    'intake.lbl_desc':'Tell Us About Your Book','intake.ph_desc':'A brief synopsis — what is the book about, who is the reader, why now?',
+    'intake.lbl_bio':'About You','intake.ph_bio':'A short author bio — previous publications, background, or anything relevant.',
+    'intake.btn_submit':'Submit Manuscript ›','intake.btn_email':'Send via Email',
+    'cat.nonfiction':'Non-fiction','cat.fiction':'Fiction','cat.essays':'Essays','cat.other':'Other',
   },
   sk: {
     'login.sub':'Vydavateľský systém',
@@ -1235,6 +1247,17 @@ const L = {
     'project.cover_url':'URL obálky','project.wordcount':'Počet slov',
     'project.back':'← Späť na pipeline',
     'bk.cover_url':'URL obálky (nepovinné)',
+    'intake.heading':'Odoslať rukopis',
+    'intake.subheading':'Každé podanie čítame s pozornosťou. Ak vaša práca zodpovedá nášmu zameraniu, ozveme sa do 6 týždňov.',
+    'intake.lbl_name':'Vaše meno','intake.ph_name':'Celé meno',
+    'intake.lbl_email':'E-mailová adresa',
+    'intake.lbl_title':'Názov knihy','intake.ph_title':'Pracovný názov je v poriadku',
+    'intake.lbl_cat':'Kategória',
+    'intake.lbl_words':'Počet slov (približne)','intake.ph_words':'napr. 60 000',
+    'intake.lbl_desc':'O knihe','intake.ph_desc':'Stručná synopsa — o čom kniha je, kto je čitateľ, prečo práve teraz?',
+    'intake.lbl_bio':'O vás','intake.ph_bio':'Krátky autorský bio — predchádzajúce publikácie, pozadie, čokoľvek relevantné.',
+    'intake.btn_submit':'Odoslať rukopis ›','intake.btn_email':'Poslať e-mailom',
+    'cat.nonfiction':'Fakty/literatúra faktu','cat.fiction':'Beletria','cat.essays':'Eseje','cat.other':'Iné',
   }
 };
 let lang = localStorage.getItem('jp_lang') || 'en';
@@ -1433,15 +1456,17 @@ const VIEW_TITLES = {
 };
 const VIEW_ACTIONS = {
   pipeline:    () => `<button class="btn btn-primary btn-sm" onclick="openModal('card-modal')">+ ${lang==='sk'?'Pridať':'Add Title'}</button>`,
-  catalogue:   () => `<button class="btn btn-primary btn-sm" onclick="openModal('book-modal')">+ ${lang==='sk'?'Pridať':'Add Book'}</button>`,
+  catalogue:   () => `<button class="btn btn-primary btn-sm" onclick="openAddBookModal()">+ ${lang==='sk'?'Pridať':'Add Book'}</button>`,
   readers:     () => `<button class="btn btn-primary btn-sm" onclick="openModal('reader-modal')">+ ${lang==='sk'?'Pridať':'Add Reader'}</button><button class="btn btn-ghost btn-sm" onclick="exportCSV()">Export CSV</button>`,
 };
 let currentView = 'dashboard';
 
+const VALID_VIEWS = ['dashboard','pipeline','submissions','catalogue','readers','insights','intake'];
 function showView(v) {
+  if (!VALID_VIEWS.includes(v)) v = 'dashboard';
   currentView = v;
   document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
-  document.getElementById('view-'+v).classList.add('active');
+  document.getElementById('view-'+v)?.classList.add('active');
   document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
   document.getElementById('ni-'+v)?.classList.add('active');
   // Mobile nav
@@ -1452,6 +1477,10 @@ function showView(v) {
   document.getElementById('topbar-title').textContent = VIEW_TITLES[v]?.[lang] || v;
   const actionsEl = document.getElementById('topbar-actions');
   actionsEl.innerHTML = VIEW_ACTIONS[v]?.() || '';
+  // Update URL hash for shareable/bookmarkable links
+  if (history.replaceState) {
+    history.replaceState(null, '', '#' + v);
+  }
   renderCurrentView();
 }
 
@@ -1730,7 +1759,8 @@ function openSubmission(id) {
   document.getElementById('sub-modal-footer').innerHTML = `
     <button class="btn btn-ghost" onclick="closeModal('sub-modal')">Close</button>
     <button class="btn btn-danger btn-sm" onclick="setSubStatus(${id},'declined');closeModal('sub-modal')">Decline</button>
-    <button class="btn btn-primary" onclick="setSubStatus(${id},'reviewed');closeModal('sub-modal')">Mark Reviewed</button>`;
+    <button class="btn btn-ghost" onclick="setSubStatus(${id},'reviewed');closeModal('sub-modal')">Mark Reviewed</button>
+    <button class="btn btn-primary" onclick="addSubToPipeline(${id})">→ Add to Pipeline</button>`;
   openModal('sub-modal');
 }
 
@@ -1752,6 +1782,34 @@ function deleteSubmission(id) {
   set('submissions', (get('submissions')||[]).filter(x=>x.id!==id));
   renderSubmissions();
   updateBadges();
+}
+
+function addSubToPipeline(id) {
+  const subs = get('submissions') || [];
+  const s = subs.find(x => x.id === id);
+  if (!s) return;
+  // Create pipeline card from submission data
+  const cards = get('pipeline') || [];
+  const newCard = {
+    id:     Date.now(),
+    title:  s.bookTitle || 'Untitled',
+    author: s.name      || '',
+    stage:  STAGES[0],
+    cat:    s.genre     || 'nonfiction',
+    notes:  s.desc      ? s.desc.slice(0, 120) : '',
+    wordCount: '',
+    created: new Date().toISOString().slice(0,10)
+  };
+  cards.push(newCard);
+  set('pipeline', cards);
+  // Mark submission as reviewed
+  s.status = 'reviewed';
+  set('submissions', subs);
+  closeModal('sub-modal');
+  renderSubmissions();
+  updateBadges();
+  logActivity(`<strong>${newCard.title}</strong> added to pipeline from submission`, 'green');
+  toast(`"${newCard.title}" added to Pipeline ✓`);
 }
 
 // ════════════════════════════════════════
@@ -1785,6 +1843,24 @@ function submitIntakeForm() {
   showView('submissions');
 }
 
+function sendIntakeEmail() {
+  const s = getSettings();
+  const to = s.contactEmail || '';
+  if (!to) { toast('Set a contact email in Studio › Identity first.'); return; }
+  const name  = document.getElementById('in-name')?.value.trim()  || '';
+  const email = document.getElementById('in-email')?.value.trim() || '';
+  const book  = document.getElementById('in-book')?.value.trim()  || '';
+  const cat   = document.getElementById('in-cat')?.value          || '';
+  const words = document.getElementById('in-words')?.value.trim() || '';
+  const desc  = document.getElementById('in-desc')?.value.trim()  || '';
+  const bio   = document.getElementById('in-bio')?.value.trim()   || '';
+  const subject = encodeURIComponent(`Manuscript Submission: ${book}`);
+  const body = encodeURIComponent(
+    `Name: ${name}\nEmail: ${email}\n\nBook Title: ${book}\nCategory: ${cat}\nWord Count: ${words}\n\nAbout the Book:\n${desc}\n\nAbout the Author:\n${bio}`
+  );
+  window.open(`mailto:${to}?subject=${subject}&body=${body}`, '_blank');
+}
+
 // ════════════════════════════════════════
 //  CATALOGUE
 // ════════════════════════════════════════
@@ -1809,7 +1885,7 @@ function renderCatalogue() {
       <td><span class="card-tag tag-${b.cat}" style="display:inline-block;">${catLabel(b.cat)}</span></td>
       <td style="color:var(--muted2);font-size:0.78rem;">${(b.formats||[]).join(', ')}</td>
       <td><span class="status-pill pill-${b.status==='published'?'published':'draft'}">${b.status}</span></td>
-      <td><button class="btn btn-danger btn-sm" onclick="deleteBook(${b.id})">✕</button></td>
+      <td style="display:flex;gap:6px;align-items:center;"><button class="btn btn-ghost btn-sm" onclick="editBook(${b.id})" title="Edit" style="font-size:0.75rem;">✏</button><button class="btn btn-danger btn-sm" onclick="deleteBook(${b.id})">✕</button></td>
     </tr>`).join('')}</tbody></table>`;
 }
 
@@ -1843,6 +1919,38 @@ function deleteBook(id) {
   if (!confirm('Remove from catalogue?')) return;
   set('catalogue', (get('catalogue')||defaultCatalogue()).filter(b=>b.id!==id));
   renderCatalogue();
+}
+
+function openAddBookModal() {
+  editBookId = null;
+  const titleEl = document.getElementById('book-modal-title');
+  if (titleEl) titleEl.textContent = t('modal.addbook');
+  ['bk-title','bk-author','bk-year','bk-desc','bk-cover'].forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
+  const ebookEl = document.getElementById('bk-ebook');
+  const printEl = document.getElementById('bk-print');
+  const catEl   = document.getElementById('bk-cat');
+  if (ebookEl) ebookEl.checked = true;
+  if (printEl) printEl.checked = false;
+  if (catEl)   catEl.value = 'nonfiction';
+  openModal('book-modal');
+}
+
+function editBook(id) {
+  const books = get('catalogue') || defaultCatalogue();
+  const b = books.find(x => x.id === id);
+  if (!b) return;
+  editBookId = id;
+  const titleEl = document.getElementById('book-modal-title');
+  if (titleEl) titleEl.textContent = lang === 'sk' ? 'Upraviť knihu' : 'Edit Book';
+  document.getElementById('bk-title').value  = b.title    || '';
+  document.getElementById('bk-author').value = b.author   || '';
+  document.getElementById('bk-year').value   = b.year     || '';
+  document.getElementById('bk-cat').value    = b.cat      || 'nonfiction';
+  document.getElementById('bk-desc').value   = b.desc     || '';
+  document.getElementById('bk-cover').value  = b.coverUrl || '';
+  document.getElementById('bk-ebook').checked = (b.formats || []).includes('ebook');
+  document.getElementById('bk-print').checked = (b.formats || []).includes('print');
+  openModal('book-modal');
 }
 
 // ════════════════════════════════════════
@@ -1945,7 +2053,7 @@ const CMD_DEFINITIONS = [
   { icon:'✍', label:'Submission Form',    hint:'F', action:()=>showView('intake') },
   { icon:'◎', label:'Insights',           hint:'I', action:()=>showView('insights') },
   { icon:'+', label:'Add to Pipeline',    hint:'',  action:()=>{ showView('pipeline'); setTimeout(()=>openModal('card-modal'),100); } },
-  { icon:'+', label:'Add Book',           hint:'',  action:()=>{ showView('catalogue'); setTimeout(()=>openModal('book-modal'),100); } },
+  { icon:'+', label:'Add Book',           hint:'',  action:()=>{ showView('catalogue'); setTimeout(()=>openAddBookModal(),100); } },
   { icon:'+', label:'Add Reader',         hint:'',  action:()=>{ showView('readers'); setTimeout(()=>openModal('reader-modal'),100); } },
   { icon:'💾', label:'Export Readers CSV', hint:'',  action:()=>exportCSV() },
   { icon:'EN', label:'Switch to English', hint:'',  action:()=>setLangAndClose('en') },
@@ -2041,7 +2149,9 @@ document.addEventListener('keydown', e => {
 // ════════════════════════════════════════
 function initApp() {
   setLang(lang);
-  showView('dashboard');
+  // Honour deep-link hash on load (e.g. janapress.netlify.app/#pipeline)
+  const hashView = window.location.hash.replace('#','');
+  showView(VALID_VIEWS.includes(hashView) ? hashView : 'dashboard');
 }
 
 // ════════════════════════════════════════
@@ -2269,6 +2379,7 @@ const SETTINGS_DEFAULTS = {
   profileName: 'Jana Palúchová',
   profileRole: 'Publisher',
   websiteUrl: 'https://janapress.sk',
+  contactEmail: '',
   modules: { pipeline:true, submissions:true, catalogue:true, readers:true, intake:true },
 };
 
@@ -2311,6 +2422,11 @@ function applySettings(s) {
     root.style.setProperty('--border2', '#D8CEBE');
     root.style.setProperty('--muted', '#7A6A60');
     root.style.setProperty('--muted2', '#B8A898');
+  }
+  // Publisher name — update sidebar logo + login logo
+  if (s.publisherName) {
+    document.querySelectorAll('.sidebar-logo').forEach(el => { el.innerHTML = s.publisherName; });
+    document.querySelectorAll('.login-left-logo').forEach(el => { el.innerHTML = s.publisherName; });
   }
   // Tagline
   document.querySelectorAll('.login-left-tagline').forEach(el => el.textContent = s.tagline);
@@ -2369,7 +2485,9 @@ function renderStudio() {
       <div class="studio-field"><label class="studio-label">Role / Title</label>
         <input class="studio-input" value="${s.profileRole}" oninput="saveSettings({profileRole:this.value})"></div>
       <div class="studio-field"><label class="studio-label">Website URL</label>
-        <input class="studio-input" type="url" value="${s.websiteUrl}" oninput="saveSettings({websiteUrl:this.value});document.querySelector('.sidebar-website').href=this.value;"></div>`;
+        <input class="studio-input" type="url" value="${s.websiteUrl}" oninput="saveSettings({websiteUrl:this.value});document.querySelector('.sidebar-website').href=this.value;"></div>
+      <div class="studio-field"><label class="studio-label">Contact Email <span style="font-size:0.65rem;color:var(--muted);">(used by submission intake form)</span></label>
+        <input class="studio-input" type="email" value="${s.contactEmail||''}" placeholder="submissions@yourpress.com" oninput="saveSettings({contactEmail:this.value})"></div>`;
   }
 
   else if (studioTab === 'modules') {
